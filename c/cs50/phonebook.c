@@ -2,10 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 
-int N = 2;
+const int N = 2;
 
 typedef char* string;
-
 typedef struct Person
 {
     string name;
