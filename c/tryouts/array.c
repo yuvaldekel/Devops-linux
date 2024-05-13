@@ -12,7 +12,7 @@ int main(int argc, char* argv[]){
 
     printf("%s\n", (heapArray));
 
-    char nums[4] = {'1', '2', '3', '4'};
+    char nums[] = {'1', '2', '3', '4', '\0'};
     printf("%li\n", sizeof(nums));
 
     printf("%p\n", &nums);
