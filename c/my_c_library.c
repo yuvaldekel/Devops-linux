@@ -9,6 +9,7 @@
 int string_to_int(char* string);
 int len(char* string);
 void print_array(int size,int array[]);
+void swap(int * num1, int *num2);
 int* swap_numbers(int num1, int num2);
 int* selection_sort(int numbers[], int len);
 int* buuble_sort(int numbers[], int len);
@@ -55,6 +56,13 @@ void print_array(int size,int array[])
             printf(",");
     }
     printf("]\n");
+}
+
+void swap(int * num1, int *num2)
+{
+    *num1 = *num1 ^ *num2;
+    *num2 = *num1 ^ *num2;
+    *num1 = *num1 ^ *num2;
 }
 
 int* swap_numbers(int num1, int num2)

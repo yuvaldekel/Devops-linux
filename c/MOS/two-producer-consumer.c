@@ -46,7 +46,7 @@ void *producer1(void *ptr)
         pthread_mutex_lock(&the_mutex);
         while (buffer != 0) pthread_cond_wait(&condp, &the_mutex);
         buffer = i;
-        printf("producer1 here %d. ", buffer);
+        printf("producer1 here, %d. ", buffer);
         pthread_cond_signal(&condc);
         pthread_mutex_unlock(&the_mutex);
     }
@@ -62,7 +62,7 @@ void *producer2(void *ptr)
         pthread_mutex_lock(&the_mutex);
         while (buffer != 0) pthread_cond_wait(&condp, &the_mutex);
         buffer = i;
-        printf("producer2 here %d. ", buffer);
+        printf("producer2 here, %d. ", buffer);
         pthread_cond_signal(&condc);
         pthread_mutex_unlock(&the_mutex);
     }
@@ -77,11 +77,11 @@ void *consumer(void *ptr)
     {
         pthread_mutex_lock(&the_mutex);
         while (buffer == 0) pthread_cond_wait(&condc, &the_mutex);
-        printf("consumer here %d\n", buffer);
+        printf("consumer here, %d\n", buffer);
         buffer_array[i -1] = buffer;
         buffer = 0;
-        pthread_cond_broadcast(&condp);
         pthread_mutex_unlock(&the_mutex);
+        pthread_cond_broadcast(&condp);
     }
     pthread_exit(0);
 }
