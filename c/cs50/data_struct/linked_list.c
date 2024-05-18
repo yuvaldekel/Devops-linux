@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+
 
 typedef struct Node{
     int value;
@@ -9,6 +11,7 @@ typedef struct Node{
 node *create(int num);
 void set_next(node *nd1, node *nd2);
 node *get_next(node *nd1);
+bool has_next(node * nd);
 
 int main(void)
 {
@@ -31,26 +34,20 @@ int main(void)
     }
     
     set_next(nd1, nd2);
-
     node *nd_next = get_next(nd1);
-    printf("%p\n", nd_next->next);
     set_next(nd_next, nd3);
-
-    node *next = get_next(nd1);
-    if (next != nd1)
-    {
-        free(nd1);
-        printf("success\n");
-    }
-    printf("%d\n", next->value);
     
-    node *next_next = get_next(next);
-    if (next != next_next)
+    printf("%d\n", nd1->value);
+    while(has_next(nd1))
     {
-        free(next);
-        printf("success\n");
+        node *next = get_next(nd1);
+        if (next != nd1)
+        {
+            free(nd1);
+        }
+        nd1 = next;
+        printf("%d\n", nd1->value);
     }
-    printf("%d\n", next_next->value);
 
     return 0;
 }
@@ -81,4 +78,13 @@ node *get_next(node *nd)
     }
     node *next_nd = nd->next;
     return next_nd;
+}
+
+bool has_next(node *nd)
+{
+    if (nd->next !=NULL)
+    {
+        return true;
+    }
+    return false;
 }
