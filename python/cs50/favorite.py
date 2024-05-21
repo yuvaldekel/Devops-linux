@@ -7,19 +7,20 @@ def main():
 
         next(file)
         for line in file:
+
             s = line.split(',')[1]
+            s = s.strip()
+
 
             if '"' in line:
                 g = line[line.find('"'):-1]
-                g = g[1:-1]
+                g = g[1:-1]            
             else:
                 g = line.split(',')[2]
+                g = g.strip()
 
             s = s.lower()
             g = g.lower()
-
-            s = s.strip()
-            g = g.strip()
 
             if s in show:
                 show[s] += 1
@@ -37,8 +38,8 @@ def main():
     print(f"The most loved genre is {list(genre.keys())[0]} with {list(genre.values())[0]} votes.")
     print(f"The most loved title is {list(show.keys())[0]} with {list(show.values())[0]} votes.")
 
-    #print(genre)
-    #print(show)
+    print(f"The second most loved genre is {list(genre.keys())[1]} with {list(genre.values())[1]} votes.")
+    print(f"The second most loved title is {list(show.keys())[1]} with {list(show.values())[1]} votes.")
 
 
 if __name__ == "__main__":

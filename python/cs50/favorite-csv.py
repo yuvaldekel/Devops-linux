@@ -8,7 +8,7 @@ def main():
 
         reader = csv.DictReader(file)
         for row in reader:
-
+            
             s = row["title"] 
             g = row['genres']
             if g.startswith('"'):
@@ -35,6 +35,9 @@ def main():
 
     print(f"The most loved genre is {list(genre.keys())[0]} with {list(genre.values())[0]} votes.")
     print(f"The most loved title is {list(show.keys())[0]} with {list(show.values())[0]} votes.")
+
+    print(f"The second most loved genre is {list(genre.keys())[1]} with {list(genre.values())[1]} votes.")
+    print(f"The second most loved title is {list(show.keys())[1]} with {list(show.values())[1]} votes.")
 
 
 if __name__ == "__main__":
