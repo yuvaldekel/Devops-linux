@@ -1,3 +1,4 @@
+import csv
 PATH = r"/home/yuval/Documents/yuval/Devops-linux/python/cs50/favorite.csv"
 
 def main():
@@ -5,22 +6,20 @@ def main():
     genre = {}
     with open(PATH, 'r') as file:
 
-        next(file)
-        for line in file:
-            s = line.split(',')[1]
+        reader = csv.DictReader(file)
+        for row in reader:
 
-            if '"' in line:
-                g = line[line.find('"'):-1]
+            s = row["title"] 
+            g = row['genres']
+            if g.startswith('"'):
                 g = g[1:-1]
-            else:
-                g = line.split(',')[2]
 
             s = s.lower()
             g = g.lower()
 
             s = s.strip()
             g = g.strip()
-
+            
             if s in show:
                 show[s] += 1
             else:
@@ -36,9 +35,6 @@ def main():
 
     print(f"The most loved genre is {list(genre.keys())[0]} with {list(genre.values())[0]} votes.")
     print(f"The most loved title is {list(show.keys())[0]} with {list(show.values())[0]} votes.")
-
-    #print(genre)
-    #print(show)
 
 
 if __name__ == "__main__":
