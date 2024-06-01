@@ -1,12 +1,12 @@
-from socket import gethostbyname, gethostname
+from socket import gethostname, socket, AF_INET, SOCK_DGRAM
 
 def get_name():
     return gethostname()
 
 def get_ip():
-    IPAddr = gethostbyname(get_name())
-    return IPAddr
-
+    s = socket(AF_INET, SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    return s.getsockname()[0]
 
 def main():
     hostname = get_name()
