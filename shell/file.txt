@@ -1,0 +1,12 @@
+drwxrwxr-x 13 yuval yuval 4096 May 25 13:31 ../
+drwxrwxr-x  2 yuval yuval 4096 Jun  8 11:42 ./
+-rw-rw-r--  1 yuval yuval    0 Jun  8 11:44 file.txt
+-rw-rw-r--  1 yuval yuval  168 May 19 16:56 pi.ps1
+-rw-rw-r--  1 yuval yuval  176 May 19 17:11 func.ps1
+-rw-rw-r--  1 yuval yuval   30 Jun  8 11:42 sort.txt
+-rw-rw-r--  1 yuval yuval   36 Apr 27 13:09 grep.txt
+-rw-rw-r--  1 yuval yuval   41 Apr 30 09:14 infinte.ps1
+-rw-rw-r--  1 yuval yuval   61 Apr 27 11:31 example.txt
+-rwxrw-r--  1 yuval yuval   48 Apr 27 13:09 grep.sh*
+-rwxrwxr-x  1 yuval yuval  119 May  8 12:14 mvdevops.sh*
+total 40
