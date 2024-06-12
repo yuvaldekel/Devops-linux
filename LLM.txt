@@ -1,0 +1,7 @@
+general-purpose language genartion
+
+other tasks such as text classifiction, translation.
+
+trained on vast amount of data. and learning statistical relation.
+
+transformer invented 2017, most powerfull LLM as 2024

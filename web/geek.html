@@ -1,0 +1,37 @@
+<!DOCTYPE html> 
+<html> 
+
+<head> 
+	<title> 
+		Disable form submission on pressing enter key 
+	</title> 
+
+	<style> 
+		body { 
+			text-align: center; 
+		} 
+
+		h1 { 
+			color: green; 
+		} 
+	</style> 
+</head> 
+
+<body> 
+	<h1>GeeksforGeeks</h1> 
+	<form id="form-id" onkeydown="if(event.keyCode === 13) { 
+				alert( 
+	'You have pressed Enter key, use submit button instead'); 
+				return false; 
+		}"> 
+		<label>First name:</label> 
+		<input type="text" name="first-name" /> 
+		<div><br /> 
+			<label>Last name:</label> 
+			<input type="text" name="last-name" /> 
+		</div><br /> 
+		<input type="submit" value="Submit" /> 
+	</form> 
+</body> 
+
+</html> 
