@@ -1,5 +1,9 @@
+import numpy as np
 from math import sin, cos
-from random import seed
+from random import randint
+from PIL import Image
+from itertools import product
+import time
 
 
 class PerlinNoise:
@@ -11,9 +15,9 @@ class PerlinNoise:
         for corner_x in range(self.x_size + 1):
 
             for corner_y in range(self.y_size + 1):
-                angle = seed(0, 359)
-                vector_x = corner_x + cos(angle)
-                vector_y = corner_y + sin(angle)
+                angle = randint(0, 359)
+                vector_x = cos(angle)
+                vector_y = sin(angle)
 
                 self.corners_gradient[(corner_x, corner_y)] = (vector_x, vector_y)
 
@@ -21,7 +25,7 @@ class PerlinNoise:
     def __init__(self, x_size, y_size) -> None:
         self.x_size = x_size 
         self.y_size = y_size
-        self.init_gradient_corner()
+        self.init_random_gradient()
 
 
     @staticmethod
@@ -35,8 +39,8 @@ class PerlinNoise:
 
 
     def perlin(self, x, y):
-        vectors = []
-        corner_vector = []
+        vectors = [0] * 4
+        corner_vector = [0] * 4
 
         int_x = int(x)
         int_y = int(y)
@@ -47,9 +51,9 @@ class PerlinNoise:
         corner_vector[3] = self.corners_gradient[(int_x + 1, int_y + 1)]
 
         vectors[0] = (x - int_x, y - int_y)
-        vectors[1] = (x - int_x, int_y + 1 - y)
-        vectors[2] = (int_x + 1 - x, y - int_y)
-        vectors[3] = (int_x + 1 - x, int_y + 1 -y)
+        vectors[1] = (x - int_x, y - int_y - 1)
+        vectors[2] = (x - int_x - 1, y - int_y)
+        vectors[3] = (x - int_x - 1, y - int_y - 1)
 
         dot_lu = self.dot(corner_vector[0], vectors[0])
         dot_lb = self.dot(corner_vector[1], vectors[1])
@@ -62,20 +66,76 @@ class PerlinNoise:
 
         w = (x - int_x) 
         return dot_l + self.smothstep(w) * (dot_r - dot_l)
-    
-    def create_array(self, frequency):
-        array = []
-        
-        for y in range(0, self.y_size, frequency):
-        
-            for x in range(0, self.x_size, frequency):
-                row = []
-                row.append(self.perlin(x, y))
-            
-            array.append(row)
 
-        return array
+
+    def create_array(self, frequency):
+        array_x = np.arange(0, self.x_size, 1 / frequency)
+        array_y = np.arange(0, self.y_size, 1 / frequency)
+        print(1)
+        pairs = np.array(list(product(array_x, array_y))).T
+        print(1)
+        
+        x = pairs[0].reshape(self.x_size * frequency, self.y_size * frequency)
+        y = pairs[1].reshape(self.x_size * frequency, self.y_size * frequency)
+
+        applyall = np.vectorize(self.perlin)
+        return applyall(x, y)
+
+
+def normalize(array):
+    array_min = abs(np.min(array))
+    array_max = np.max(array)
+    abs_max = max(array_min, array_max)
+
+    array = array / abs_max
+    array = (array + 1) * 112.5 
+
+    return array
+
+
+def time_program(function):
+    start = time.perf_counter()
+    function()
+    end = time.perf_counter()
+
+    print(f'{float(end - start):.8f}')
 
 
 def main():
-    pass
+
+    frequency = 400
+    corners = 4
+    w = 1
+
+    image_array = None
+
+    for i in range(8):
+        perlin_instance = PerlinNoise(corners, corners)
+        current_image_array = perlin_instance.create_array(frequency)
+
+        if image_array is None:
+            image_array = current_image_array
+
+        else:
+            image_array += w * current_image_array
+
+        w = w / 2
+        new_frequency = frequency // 2
+        corners = corners * 2
+
+        if new_frequency * 2 != frequency:
+            break
+
+        frequency = new_frequency
+    
+    image_array = normalize(image_array)
+
+    image_array = np.asarray(image_array)
+    image_array = np.asarray(image_array)
+    img = Image.fromarray(image_array)
+
+    img.show("perlin.png")
+
+
+if __name__ == "__main__":
+    time_program(main)
