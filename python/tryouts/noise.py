@@ -4,6 +4,13 @@ from random import randint
 from PIL import Image
 from itertools import product
 import time
+import os
+import sys
+
+PATH = r"/home/yuval/Documents/yuval/Devops-linux/python/tryouts/images"
+Q = 0.5
+C = 2
+LAYERS = 10
 
 
 class PerlinNoise:
@@ -69,28 +76,51 @@ class PerlinNoise:
 
 
     def create_array(self, frequency):
-        array_x = np.arange(0, self.x_size, 1 / frequency)
-        array_y = np.arange(0, self.y_size, 1 / frequency)
-        print(1)
-        pairs = np.array(list(product(array_x, array_y))).T
-        print(1)
-        
-        x = pairs[0].reshape(self.x_size * frequency, self.y_size * frequency)
-        y = pairs[1].reshape(self.x_size * frequency, self.y_size * frequency)
+        x_pixels = int(self.x_size * frequency)
+        y_pixels = int(self.y_size * frequency)
 
-        applyall = np.vectorize(self.perlin)
-        return applyall(x, y)
+        array_x = np.arange(0, x_pixels) / frequency
+        array_y = np.arange(0, y_pixels) / frequency
+        pairs = np.array(list(product(array_x, array_y))).T
+
+        x = pairs[0].reshape(x_pixels, y_pixels)
+        y = pairs[1].reshape(x_pixels, y_pixels)
+
+        apply_all = np.vectorize(self.perlin)
+        return apply_all(x, y)
 
 
 def normalize(array):
     array_min = abs(np.min(array))
     array_max = np.max(array)
+
     abs_max = max(array_min, array_max)
 
     array = array / abs_max
-    array = (array + 1) * 112.5 
-
+    array = (array + 1) * 127.5 
     return array
+
+
+def save_img(img):
+    images = list(filter(lambda file: file.endswith(".PNG"), os.listdir(PATH)))
+    
+    if not images:
+        next = 0
+
+    else:    
+        current = max(images)
+    
+        start = 6
+        end = current.find('.')
+        next = int(current[start:end]) + 1
+        
+    
+    name = f"perlin{next}.PNG"
+    img = img.convert("L")
+    img.save(f"{PATH}/{name}")
+
+    img = Image.open(f"{PATH}/{name}")
+    img.show()
 
 
 def time_program(function):
@@ -102,14 +132,13 @@ def time_program(function):
 
 
 def main():
-
-    frequency = 400
-    corners = 4
-    w = 1
-
+    pixels = int(sys.argv[1])
+    frequency =  pixels / C
+    corners = C
     image_array = None
 
-    for i in range(8):
+    #while corners < pixels:
+    for i in range(LAYERS):
         perlin_instance = PerlinNoise(corners, corners)
         current_image_array = perlin_instance.create_array(frequency)
 
@@ -117,14 +146,14 @@ def main():
             image_array = current_image_array
 
         else:
-            image_array += w * current_image_array
+            w = (1 * (Q ** i))
+            sum_w = (Q ** (i) - 1) / -Q
 
-        w = w / 2
-        new_frequency = frequency // 2
+            image_array = image_array * sum_w + w * current_image_array 
+            image_array = image_array / (sum_w + w) 
+
+        new_frequency = frequency / 2
         corners = corners * 2
-
-        if new_frequency * 2 != frequency:
-            break
 
         frequency = new_frequency
     
@@ -134,8 +163,7 @@ def main():
     image_array = np.asarray(image_array)
     img = Image.fromarray(image_array)
 
-    img.show("perlin.png")
-
+    save_img(img)
 
 if __name__ == "__main__":
     time_program(main)
