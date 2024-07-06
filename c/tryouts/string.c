@@ -25,6 +25,11 @@ int main(int argc, char* argv[])
 
     printf("%s\n", string2);    
     printf("%p\n", &string);    
-    printf("%p\n", &string2);    
+    printf("%p\n", &string2);   
+
+    char *string1;
+    string1 = "sss";
+    printf("%s\n", string1);    
+
 
 }
