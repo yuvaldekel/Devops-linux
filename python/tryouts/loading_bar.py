@@ -11,7 +11,7 @@ def progress_bar(size = 100, step = 1):
     try:
         print("\033[?25l", end = '')
         
-        for curr_place in range(1,size + 1, step):
+        for curr_place in range(0, size + 1, step):
             percent = int(curr_place / size * 100)
             left = size - curr_place
 
