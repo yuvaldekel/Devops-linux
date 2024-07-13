@@ -5,20 +5,21 @@ from time import sleep
 import webbrowser
 
 
-def progress_bar(size = 100, step = 1):
+def progress_bar(size = 40, step = 3):
     seed(2 * sqrt(step))
 
     try:
         print("\033[?25l", end = '')
         
-        for curr_place in range(0, size + 1, step):
+        for curr_place in range(size + 1):
             percent = int(curr_place / size * 100)
             left = size - curr_place
 
             print(colored(f"PROGRESS: [{percent}%]", 'black', 'on_green'), end = '')
             print(f" [{'#' * curr_place}{"." * left}]\r", end = "")
 
-            sleep(random())
+            if curr_place % step == 0 or curr_place == size:
+               sleep(random())
             
         print(f"{' ' * (size + 20)}\r", end = '')
     
