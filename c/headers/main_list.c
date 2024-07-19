@@ -29,7 +29,7 @@ int main(void)
             set_next(last_node, current_node);
         }
 
-        else
+        if (first_node == NULL)
         {
             first_node = current_node;
         }

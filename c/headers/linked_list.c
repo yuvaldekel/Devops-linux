@@ -7,6 +7,7 @@
 node *create(int num)
 {
     node *nd = (node*) malloc(sizeof(node));
+    
     if (nd == NULL)
     {
         return NULL;
@@ -28,6 +29,7 @@ node *get_next(node *nd)
     {
         return NULL;
     }
+    
     node *next_nd = nd->next;
     return next_nd;
 }
@@ -38,5 +40,6 @@ bool has_next(node *nd)
     {
         return true;
     }
+
     return false;
 }
