@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     for (i=1;i<=n;i++)
     {
         print_pyramid(i);
-        //printf("*");
+        printf("*");
 
         //if (i != n)
         //{
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     for (i=n-1;i>=1;i--)
     {
         print_pyramid(i);
-        //printf("*");
+        printf("*");
     }
 
     printf("\n");
@@ -43,11 +43,11 @@ void print_pyramid(int num)
 
     for (i=1;i<num;i++)
     {
-        //printf("%d", i);
+        printf("%d", i);
     }
 
     for (i=num;i>=1;i--)
     {
-        //printf("%d", i);
+        printf("%d", i);
     }
 }
