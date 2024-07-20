@@ -1,26 +1,28 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef unsigned int uint;
 
-int main(void)
+int main(int argc, char *argv[])
 {
-    uint num = 10000;
+    uint num = atoi(argv[argc -1 ]);
     uint total = 0;
+    
     uint curr_w = 1;
-    uint curr_len = 9;
     uint curr_biggest = 9;
-    uint passed = 0;
+    uint curr_lowest = 0;
 
     while (num >= curr_biggest)
     {
-        total += curr_len * curr_w;
+        total += (curr_biggest - curr_lowest) * curr_w;
         
-        passed += curr_len;
-        curr_len *= 10;
+        curr_lowest = curr_biggest;
         curr_biggest = curr_biggest * 10 + 9;
+
         curr_w++;
     }
 
-    total += (num - passed) * curr_w;
+    total += (num - curr_lowest) * curr_w;
+    
     printf("%d\n", total);
 }
