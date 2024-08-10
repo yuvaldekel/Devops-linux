@@ -1,10 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-#import ttkbootstrap as ttk
-
-
-def radio_func(radio_var, check_var):
-    check_var.set(False)
+import ttkbootstrap as ttk
 
 
 def main():
@@ -44,24 +40,26 @@ def main():
     radio2.pack()
 
 
-    check_var2 = tk.BooleanVar()
+    check_var2 = tk.StringVar(value='Off')
     radio_var2 = tk.StringVar()
 
     radio_ex1 = ttk.Radiobutton(window,
                             text="Radiobutton_ex1",
                             value='radio1',
                             variable=radio_var2,
-                            command=lambda: radio_func(radio_var2, check_var2))
+                            command=lambda: check_var.set('Off'))
     radio_ex1.pack()
 
     radio_ex2 = ttk.Radiobutton(window,
                             text="Radiobutton_ex2",
                             value='radio2',
                             variable=radio_var2,
-                            command=lambda: radio_func(radio_var2, check_var2))
+                            command=lambda: check_var.set('Off'))
     radio_ex2.pack()
     
     check1 = ttk.Checkbutton(window,
+                            offvalue="Off",
+                            onvalue="On",
                             text='checkbox 1',
                             variable=check_var2)
     check1.pack()
@@ -69,7 +67,6 @@ def main():
     label_check = ttk.Label(window,
                             textvariable=check_var2)
     label_check.pack()
-
     label_radio = ttk.Label(window,
                             textvariable=radio_var2)
     label_radio.pack()
