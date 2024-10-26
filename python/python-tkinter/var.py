@@ -26,7 +26,11 @@ def main():
                         command=lambda: button_func(string_var))
     button.pack(pady=5)
 
+    
+
     window.mainloop()
+
+
 
 
 if __name__ == "__main__":

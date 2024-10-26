@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
     char c =  *s1;
     printf("%s\n", s);
     printf("%s\n", s1);
-    printf("%c\n", c);
+    printf("c %c\n", c);
 
     char *str = malloc(4 * sizeof(char));
     str[0] = '1';
