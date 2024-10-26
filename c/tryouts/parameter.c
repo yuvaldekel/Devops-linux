@@ -9,10 +9,12 @@ int main(int argc, char* argv[])
     printf("argc = %d\n", argc);    
     
     char* string = argv[1];
-    printf("%s\n", string);
+    printf("%p\n", string);
+    printf("%p\n", argv[1]);
     
     int number_arg = string_to_int(argv[1]);
     printf("argv[1] = %d\n", number_arg);
+
 }
 
 int len(char* string)
