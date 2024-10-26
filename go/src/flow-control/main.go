@@ -2,12 +2,29 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"time"
 )
 
 func main() {
-	FizzBuzz()
+	val := 0
+	for val <= 0 {
+		fmt.Print("Enter number: ")
+		fmt.Scanf("%d", &val)
+		fmt.Println("You entered:", val)
+	}
+}
+
+func isprime(number int) bool {
+
+	for i := 2; i <= int(math.Sqrt(float64(number))); i++ {
+		if number%i == 0 {
+			return false
+		}
+	}
+	return true
+
 }
 
 func FizzBuzz() {
