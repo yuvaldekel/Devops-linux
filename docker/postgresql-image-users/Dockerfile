@@ -1,9 +1,8 @@
-
 FROM postgres
 
 COPY dist/init-db .
 
-COPY docker-entrypoint.sh docker-ensure-initdb.sh /usr/local/bin/
+COPY docker-entrypoint.sh /usr/local/bin/
 RUN ln -sTf docker-ensure-initdb.sh /usr/local/bin/docker-enforce-initdb.sh
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
