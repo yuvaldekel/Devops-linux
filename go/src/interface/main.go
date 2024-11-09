@@ -2,11 +2,27 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/yuvaldekel/manageAccounts"
+	"store"
 )
 
 func main() {
-	employee := manageAccounts.Employee{manageAccounts.Account{"yuval", "dekel"}, 5.0}
-	fmt.Printf("%s\n", employee)
+	bruce, _ := store.CreateEmployee("Bruce", "Lee", 500)
+
+	fmt.Println(bruce.CheckCredits())
+	credits, err := bruce.AddCredits(-10)
+
+	if err != nil {
+		fmt.Println("Error:", err)
+	} else {
+		fmt.Println("New Credits Balance = ", credits)
+	}
+
+	_, err = bruce.RemoveCredits(-2500)
+	if err != nil {
+		fmt.Println("Can't withdraw or overdrawn!", err)
+	}
+
+	bruce.ChangeName("Mark")
+
+	fmt.Println(bruce)
 }

@@ -20,7 +20,7 @@ func (a *Account) ChangeName(newname string) {
 }
 
 func (e Employee) String() string {
-	return fmt.Sprintf("Name: %s %s\nCredits: %.2f\n", e.FirstName, e.LastName, e.Credits)
+	return fmt.Sprintf("Name: %s %s\nCredits: %.2f", e.FirstName, e.LastName, e.Credits)
 }
 
 func CreateEmployee(firstName, lastName string, credits float64) (*Employee, error) {
@@ -28,10 +28,12 @@ func CreateEmployee(firstName, lastName string, credits float64) (*Employee, err
 }
 
 func (e *Employee) AddCredits(amount float64) (float64, error) {
+
 	if amount > 0.0 {
 		e.Credits += amount
 		return e.Credits, nil
 	}
+
 	return 0.0, errors.New("Invalid credit amount.")
 }
 
