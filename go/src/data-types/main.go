@@ -1,9 +1,22 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
-	fmt.Println("MCM is", romanToArabic("II"))
+
+	master := make([]int, 4, 5)
+	master[0] = 0
+	master[1] = 1
+	master[2] = 2
+	master[3] = 3
+
+	var slice1 []int
+	slice1 = append(master, 4)
+	slice1[0] = 0
+	fmt.Println(slice1)
+	fmt.Println(master)
 }
 
 func fibonacci() []int {
