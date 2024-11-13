@@ -311,7 +311,7 @@ _main() {
 		if [ "$(id -u)" = '0' ]; then
 			# then restart script as postgres user
 			exec gosu postgres "$BASH_SOURCE" "$@"
-		fi
+		fi    
 
 		# only run initialization on an empty data directory
 		if [ -z "$DATABASE_ALREADY_EXISTS" ]; then
@@ -352,10 +352,11 @@ _main() {
     
 	pg_ctl start 
 
-	cp -f /app/pg_hba.conf /var/lib/postgresql/data/.
 	cp -f /app/postgresql.conf /var/lib/postgresql/data/.
-    /app/init-db 
+	printf "host replication replica_user %s %s\n" "$SECONDARY_IP" "$POSTGRES_HOST_AUTH_METHOD" >> /var/lib/postgresql/data/pg_hba.conf
     
+	/app/init-db
+
 	pg_ctl stop
     exec "$@"
 }

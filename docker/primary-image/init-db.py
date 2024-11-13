@@ -15,6 +15,7 @@ conn = psycopg2.connect(database = "postgres",
 conn.autocommit = True
 cursor = conn.cursor()
 
+cursor.execute(f"CREATE ROLE replica_user WITH REPLICATION LOGIN PASSWORD 'P@ssword321';")
 cursor.execute(f"ALTER USER postgres WITH PASSWORD '{DB_PASSWORD}';")
 cursor.execute(f"CREATE database {DB_NAME};")
 cursor.execute(f"CREATE USER {DB_USER} WITH PASSWORD '{DB_PASSWORD}';")
