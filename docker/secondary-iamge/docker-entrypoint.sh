@@ -352,8 +352,8 @@ _main() {
     
 	rm -rf /var/lib/postgresql/data/*
 
-	#printf "%s:5432:postgres:replica_user:P@ssword321" "$PRIMARY_IP" >> ~/.pgpass
-	#chmod 0600 ~/.pgpass
+	printf "%s:5432:*:replica_user:P@ssword321" "$PRIMARY_IP" >> ~/.pgpass
+	chmod 0600 ~/.pgpass
 
 	pg_basebackup -D /var/lib/postgresql/data/ -U replica_user -h $PRIMARY_IP -p 5432 -Xs -R -P
     exec "$@"
