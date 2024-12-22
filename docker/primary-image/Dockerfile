@@ -8,7 +8,7 @@ COPY docker-entrypoint.sh /usr/local/bin/
 RUN ln -sTf docker-ensure-initdb.sh /usr/local/bin/docker-enforce-initdb.sh
 
 ENV POSTGRES_PASSWORD=postgres
-ENV SECONDARY_IP="172.17.0.0/16"
+ENV SECONDARY_IP="172.18.0.0/16"
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 
