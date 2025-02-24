@@ -62,7 +62,7 @@ install_ansible () {
 
 install_docker () {
     
-    systemctl status docker
+    systemctl status docker > /dev/null
     
     if [ $? -eq 4 ]; then
         dnf -y install dnf-plugins-core
@@ -86,7 +86,7 @@ install_docker () {
 
 install_minikube () {
     
-    minikube  version
+    minikube version > /dev/null
     if [ $? -ne 0 ]; then
         curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
         sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
@@ -96,6 +96,17 @@ install_minikube () {
     snap install kubectl --classic
 }
 
+install_helm () {
+
+    helm version > /dev/null
+    if [ $? -ne 0 ]; then
+        curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+        chmod 700 get_helm.sh
+        ./get_helm.sh
+        rm get_helm.sh -rf
+    fi
+
+}
 
 fix_repos
 install_deps
@@ -103,5 +114,6 @@ install_python
 install_ansible
 install_docker
 install_minikube
+install_helm
 
 newgrp docker
