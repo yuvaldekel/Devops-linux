@@ -1,0 +1,3 @@
+[submodule "sso-workshop/keycloak-demo"]
+	path = sso-workshop/keycloak-demo
+	url = https://github.com/gennady73/keycloak-demo.git
