@@ -9,10 +9,11 @@ int main(void)
 {
     my m = {1,2};
     int num1 = 5;
-    int num2 = 1;
+    int num2 = num1;
     int num3 = 3;
     int num4 = 3;
     char *st = "ff";
+    
 
     
 
