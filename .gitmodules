@@ -1,3 +1,6 @@
 [submodule "sso-workshop/keycloak-demo"]
 	path = sso-workshop/keycloak-demo
 	url = https://github.com/gennady73/keycloak-demo.git
+[submodule "go/workspace/rssagg"]
+	path = go/workspace/rssagg
+	url = https://github.com/yuvaldekel/rssagg.git
